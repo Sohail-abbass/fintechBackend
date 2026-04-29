@@ -1,98 +1,268 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 💰 Fintech Behavior & Risk Intelligence Platform
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A full-stack fintech system that analyzes user financial behavior, evaluates risk, predicts cash flow, and makes intelligent loan decisions using real-world financial logic and AI-powered insights.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## 🚀 Features
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+* 📊 **Behavior Analysis Engine**
 
-## Project setup
+  * Tracks income vs spending patterns
+  * Calculates behavior score (0–100)
+  * Detects top spending category
 
-```bash
-$ npm install
+* ⚠️ **Risk Scoring Engine**
+
+  * Classifies users into Low / Medium / High risk
+  * Based on behavior, assets, and financial stability
+
+* 📈 **Cash Flow Prediction**
+
+  * Calculates burn rate
+  * Predicts how long savings will last
+  * Provides financial stability status
+
+* 🧠 **AI Smart Insights**
+
+  * Generates personalized financial advice
+  * Uses LLM (OpenRouter / GPT)
+  * Returns structured insights (warning, advice, insight)
+
+* 🏦 **Loan Decision Engine**
+
+  * Approve / Reject / Conditional approval
+  * Based on income, assets, behavior, and risk
+  * Provides reasoning + approved amount
+
+---
+
+## 🧱 Tech Stack
+
+### Frontend
+
+* Next.js (App Router)
+* React
+* Styled-components
+* Axios
+
+### Backend
+
+* NestJS
+* TypeScript
+* JWT Authentication
+
+### Database
+
+* PostgreSQL (Docker)
+
+### AI Integration
+
+* OpenRouter (GPT-based models)
+
+---
+
+## 📂 Project Structure
+
+```
+backend/
+  modules/
+    auth/
+    users/
+    transactions/
+    assets/
+    scoring/      ← core logic (behavior, risk, prediction, loan)
+    analytics/    ← API aggregator
+
+frontend/
+  app/
+    dashboard/
+      behavior/
+      risk/
+      cashflow/
+      insights/
+      loan/
 ```
 
-## Compile and run the project
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone Repository
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone <your-repo-url>
+cd fintech-app
 ```
 
-## Run tests
+---
+
+### 2️⃣ Backend Setup
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cd backend
+npm install
 ```
 
-## Deployment
+Create `.env` file:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+```
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=admin
+DB_PASSWORD=admin
+DB_DATABASE=fintech
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+JWT_SECRET=your_secret
+
+OPENROUTER_API_KEY=your_api_key
+```
+
+---
+
+### 3️⃣ Run PostgreSQL (Docker)
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+docker run --name fintech-db -e POSTGRES_PASSWORD=admin -p 5432:5432 -d postgres
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+### 4️⃣ Start Backend
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+npm run start:dev
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+### 5️⃣ Frontend Setup
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+cd ../frontend
+npm install
+npm run dev
+```
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## 🔌 API Endpoints
 
-## License
+### 📥 Input APIs
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+| Endpoint        | Method |
+| --------------- | ------ |
+| `/profile`      | POST   |
+| `/transactions` | POST   |
+| `/assets`       | POST   |
+
+---
+
+### 📊 Analytics APIs
+
+| Endpoint              | Method |
+| --------------------- | ------ |
+| `/analytics/overview` | GET    |
+| `/analytics/behavior` | GET    |
+| `/analytics/risk`     | GET    |
+| `/analytics/cashflow` | GET    |
+| `/analytics/insights` | GET    |
+
+---
+
+### 🧠 Decision API
+
+| Endpoint                 | Method |
+| ------------------------ | ------ |
+| `/scoring/loan-decision` | POST   |
+
+---
+
+## 🧠 System Flow
+
+```
+User Input → DB
+        ↓
+Behavior Engine
+        ↓
+Risk + Prediction
+        ↓
+AI Insights
+        ↓
+Loan Decision
+```
+
+---
+
+## ⚠️ Common Issues & Fixes
+
+### ❌ ENOSPC: no space left on device
+
+**Cause:** Disk full (Docker / logs)
+
+**Fix:**
+
+```bash
+docker system prune -a
+docker volume prune
+```
+
+---
+
+### ❌ Styled-components "active" prop warning
+
+**Cause:** Passing custom prop to DOM
+
+**Fix:**
+
+```tsx
+$active instead of active
+```
+
+---
+
+### ❌ Hydration mismatch (Next.js)
+
+**Fix:**
+
+```js
+compiler: {
+  styledComponents: true
+}
+```
+
+---
+
+### ❌ 404 API errors
+
+**Check:**
+
+* Module imported in `AppModule`
+* Controller registered
+* Server restarted
+
+---
+
+## 📌 Future Improvements
+
+* Machine Learning credit scoring
+* Fraud detection
+* EMI calculator
+* Credit history integration
+* Real bank API integration
+
+---
+
+## 👨‍💻 Author
+
+Muhammad Sohail
+Frontend Developer → Full Stack Fintech Engineer 🚀
+
+---
+
+## ⭐ Why This Project Matters
+
+This is not a basic CRUD app —
+it simulates **real-world financial decision-making systems** used by banks and fintech platforms.
+
+---
