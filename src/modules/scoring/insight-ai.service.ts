@@ -34,9 +34,23 @@ export class InsightAIService {
   }
 
   async generateInsight(data: BehaviorAnalysis): Promise<InsightItem[]> {
+    // Try AI first, fallback to mock
+    try {
+      const aiResult = await this.generateAIInsight(data);
+      if (aiResult.length > 0 && aiResult[0].type !== 'warning') {
+        return aiResult;
+      }
+    } catch (error) {
+      this.logger.warn('AI insight failed, using mock', error);
+    }
+
+    // Mock insights based on data
+    return this.generateMockInsights(data);
+  }
+
+  private async generateAIInsight(data: BehaviorAnalysis): Promise<InsightItem[]> {
     if (!this.apiKey) {
-      this.logger.warn('OPENROUTER_API_KEY missing');
-      return [{ type: 'warning', message: 'API key missing' }];
+      throw new Error('API key missing');
     }
     const prompt = `
     You are a professional fintech financial advisor.
@@ -154,5 +168,48 @@ export class InsightAIService {
         },
       ];
     }
+  }
+
+  private generateMockInsights(data: BehaviorAnalysis): InsightItem[] {
+    const insights: InsightItem[] = [];
+
+    // Warning based on risk level
+    if (data.riskLevel === 'high') {
+      insights.push({
+        type: 'warning',
+        message: `Your spending of ${data.totalSpend} PKR exceeds your income of ${data.monthlyIncome} PKR significantly. This puts you at high financial risk.`,
+      });
+    } else if (data.riskLevel === 'medium') {
+      insights.push({
+        type: 'warning',
+        message: `Your spending ratio is moderate but could be optimized. Consider reducing expenses in ${data.topCategory} category.`,
+      });
+    } else {
+      insights.push({
+        type: 'warning',
+        message: `Your financial behavior is strong, but always maintain an emergency fund of at least 3 months' expenses.`,
+      });
+    }
+
+    // Advice based on savings and assets
+    if (data.savings < data.monthlyIncome * 0.1) {
+      insights.push({
+        type: 'advice',
+        message: `Build your savings by setting aside at least 10% of your income monthly. Current savings: ${data.savings} PKR.`,
+      });
+    } else {
+      insights.push({
+        type: 'advice',
+        message: `Consider investing your savings of ${data.savings} PKR in diversified assets to grow your wealth over time.`,
+      });
+    }
+
+    // Insight based on spending patterns
+    insights.push({
+      type: 'insight',
+      message: `Your highest spending category is ${data.topCategory}, representing a significant portion of your expenses. This suggests ${data.topCategory === 'food' ? 'focus on meal planning' : data.topCategory === 'transport' ? 'consider more efficient transportation options' : 'potential for cost optimization in this area'}.`,
+    });
+
+    return insights;
   }
 }
